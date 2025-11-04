@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD to DOCX 转换器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Markdown 到 DOCX 转换器</h1>
+
+        <div class="step">
+            <h2>第一步：上传样式模板 (.docx)</h2>
+            <p>
+                请在您的.docx模板文件中进行如下操作：
+                <ol>
+                    <li><b>为各种文本设置样式：</b>输入<code># 标题1</code>, <code>## 标题2</code>, <code>> 引用</code>, <code>正文</code>等MD标记文本，并分别为它们设置样式。</li>
+                    <li><b>设置表格样式：</b>在文档中插入一个<b>任意内容</b>的表格，并设置好您期望的边框、底纹和内部文字样式。</li>
+                </ol>
+                程序会自动识别这些元素，并将它们的样式作为转换标准。
+            </p>
+            <input type="file" id="template-uploader" accept=".docx">
+        </div>
+
+        <div id="template-xml-area">
+            <h3>模板 <code>document.xml</code> 结构预览:</h3>
+            <pre id="template-xml-preview"><code>上传模板后，此处将显示其内部 document.xml 的原始结构...</code></pre>
+        </div>
+
+        <div id="style-display-area">
+            <h3>提取到的模板样式：</h3>
+            <div id="style-list">
+                <p class="placeholder">上传模板后，此处将显示提取到的样式。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>第二步：输入 Markdown 内容</h2>
+            <textarea id="markdown-input" rows="15" placeholder="在此处输入您的 Markdown..."></textarea>
+        </div>
+
+        <div id="generated-xml-area">
+            <h3>生成内容预览 (XML片段):</h3>
+            <pre id="xml-preview"><code>输入Markdown后，此处将实时显示生成的XML内容...</code></pre>
+        </div>
+
+        <div class="step">
+            <button id="convert-btn">转换并下载 DOCX</button>
+        </div>
+
+        <div class="footer">
+            <p>纯前端实现，您的文件不会被上传到任何服务器。</p>
+        </div>
+    </div>
+
+    <!-- 依赖库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.0/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+    
+    <!-- 主逻辑 -->
+    <script src="main.js"></script>
+</body>
+</html>
