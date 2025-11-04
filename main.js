@@ -2,14 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const templateUploader = document.getElementById('template-uploader');
     const markdownInput = document.getElementById('markdown-input');
     const convertBtn = document.getElementById('convert-btn');
-    const styleListContainer = document.getElementById('style-list');
-    const xmlPreview = document.getElementById('xml-preview');
-    const templateXmlPreview = document.getElementById('template-xml-preview');
-
+    const langSwitcher = document.getElementById('lang-switcher-select');
+    
     let templateFile = null;
     let extractedStyles = null; // Stays as the style dictionary
     let analysisResult = null; // New variable to hold the full analysis
     let debounceTimer;
+
+    // --- I18n Setup ---
+    langSwitcher.addEventListener('change', (event) => setLanguage(event.target.value));
+    
+    // Set initial language and update switcher to match
+    langSwitcher.value = currentLanguage;
+    setLanguage(currentLanguage);
 
     templateUploader.addEventListener('change', async (event) => {
         templateFile = event.target.files[0];
@@ -47,32 +52,30 @@ document.addEventListener('DOMContentLoaded', () => {
         debounceTimer = setTimeout(() => {
             if (extractedStyles) {
                 const markdownText = markdownInput.value;
-                const xmlContent = generateDocumentXml(markdownText, extractedStyles);
-                xmlPreview.querySelector('code').innerHTML = highlightXml(xmlContent);
-            } else {
-                xmlPreview.querySelector('code').textContent = '请先上传一个模板文件，以便根据其样式生成内容。';
+                // No need to show preview anymore
+                // const xmlContent = generateDocumentXml(markdownText, extractedStyles);
             }
         }, 300);
     });
 
     convertBtn.addEventListener('click', async () => {
         if (!templateFile) {
-            alert('请先上传一个.docx模板文件！');
+            alert(t('uploadFirst'));
             return;
         }
         if (!extractedStyles || !analysisResult) {
-            alert('样式尚未解析完成或解析失败，请重新上传模板。');
+            alert(t('stylesNotReady'));
             return;
         }
 
         const markdownText = markdownInput.value;
         if (!markdownText.trim()) {
-            alert('请输入有效的Markdown内容！');
+            alert(t('enterMarkdown'));
             return;
         }
 
         try {
-            convertBtn.textContent = '正在转换...';
+            convertBtn.textContent = t('converting');
             convertBtn.disabled = true;
 
             const newBodyContent = generateDocumentXml(markdownText, extractedStyles);
@@ -80,13 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const blob = await createDocxBlob(newBodyContent, templateFile, analysisResult);
             
             saveAs(blob, 'output.docx');
-            alert('转换成功！');
+            alert(t('conversionSuccess'));
 
         } catch (error) {
             console.error('转换过程中发生错误:', error);
-            alert(`转换失败: ${error.message}`);
+            alert(`${t('conversionFail')}${error.message}`);
         } finally {
-            convertBtn.textContent = '转换并下载 DOCX';
+            // Restore button text based on current language
+            convertBtn.textContent = t('convertButton');
             convertBtn.disabled = false;
         }
     });

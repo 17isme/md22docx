@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MD to DOCX 转换器</title>
+    <title data-i18n-key="appTitle">Markdown to DOCX Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Markdown 到 DOCX 转换器</h1>
+        <div class="header">
+            <div class="title-area">
+                <h1 data-i18n-key="appTitle">Markdown to DOCX Converter</h1>
+                <a href="https://github.com/17isme/md22docx" class="github-link" target="_blank">View on GitHub</a>
+            </div>
+            <div class="lang-switcher">
+                <select id="lang-switcher-select">
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+        </div>
 
         <div class="step">
-            <h2>第一步：上传样式模板 (.docx)</h2>
-            <p>
-                请在您的.docx模板文件中进行如下操作：
-                <ol>
-                    <li><b>为各种文本设置样式：</b>输入<code># 标题1</code>, <code>## 标题2</code>, <code>> 引用</code>, <code>正文</code>等MD标记文本，并分别为它们设置样式。</li>
-                    <li><b>设置表格样式：</b>在文档中插入一个<b>任意内容</b>的表格，并设置好您期望的边框、底纹和内部文字样式。</li>
-                </ol>
-                程序会自动识别这些元素，并将它们的样式作为转换标准。
+            <h2 data-i18n-key="step1Title">Step 1: Upload Style Template (.docx)</h2>
+            <p data-i18n-key="step1Desc1">
+                In your .docx template file, please do the following:
             </p>
+            <ol>
+                <li data-i18n-key="step1List1"><b>Style various texts:</b> Enter Markdown-style marker text like <code># Heading 1</code>, <code>## Heading 2</code>, <code>> Quote</code>, <code>Body Text</code>, etc., and set their respective styles.</li>
+                <li data-i18n-key="step1List2"><b>Style tables:</b> Insert a table with <b>any content</b> into the document and set your desired borders, shading, and internal text styles.</li>
+            </ol>
+            <p data-i18n-key="step1Desc2">The program will automatically recognize these elements and use their styles as the conversion standard.</p>
             <input type="file" id="template-uploader" accept=".docx">
         </div>
 
@@ -36,8 +47,8 @@
         </div>
 
         <div class="step">
-            <h2>第二步：输入 Markdown 内容</h2>
-            <textarea id="markdown-input" rows="15" placeholder="在此处输入您的 Markdown..."></textarea>
+            <h2 data-i18n-key="step2Title">Step 2: Input Markdown Content</h2>
+            <textarea id="markdown-input" rows="15" placeholder="Enter your Markdown here..." data-i18n-key="markdownPlaceholder"></textarea>
         </div>
 
         <div id="generated-xml-area">
@@ -46,20 +57,21 @@
         </div>
 
         <div class="step">
-            <button id="convert-btn">转换并下载 DOCX</button>
+            <button id="convert-btn" data-i18n-key="convertButton">Convert and Download DOCX</button>
         </div>
 
-        <div class="footer">
-            <p>纯前端实现，您的文件不会被上传到任何服务器。</p>
-        </div>
     </div>
 
-    <!-- 依赖库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.0/jszip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
-    
-    <!-- 主逻辑 -->
+    <div class="footer">
+        <p data-i18n-key="footerText">
+            Powered by <a href="https://github.com/Stuk/jszip" target="_blank">JSZip</a>, <a href="https://github.com/markedjs/marked" target="_blank">marked.js</a>, and <a href="https://github.com/eligrey/FileSaver.js" target="_blank">FileSaver.js</a>.
+        </p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="i18n.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
