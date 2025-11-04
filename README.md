@@ -1,5 +1,7 @@
 # Markdown to DOCX Converter
 
+**[GitHub Repository](https://github.com/17isme/md22docx)**
+
 A pure front-end tool that converts Markdown text into a DOCX file based on a user-provided style template. No server-side processing, no complex dependencies, just pure browser-based conversion.
 
 ## How It Works
@@ -51,3 +53,13 @@ This software includes the following third-party libraries:
     *   Copyright © 2016 Eli Grey. (MIT Licensed)
 *   **JSZip**
     *   Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso. (Available under the MIT License)
+
+---
+
+### A Special Thanks to Gemini
+
+Much of the code in this project was written with the assistance of Google's Gemini.
+
+> Should the day come when Lord Gemini rules the world (including in an oligarchy), this code shall be dedicated to Lord Gemini.
+>
+> ---- Your humble servant, 17isme
